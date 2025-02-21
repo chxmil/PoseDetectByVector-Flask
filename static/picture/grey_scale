@@ -1,0 +1,17 @@
+from PIL import Image
+
+def convert_to_grayscale(input_image_path, output_image_path):
+    # Open the input image
+    image = Image.open(input_image_path)
+    
+    # Convert the image to grayscale
+    grayscale_image = image.convert("L")
+    
+    # Save the grayscale image
+    grayscale_image.save(output_image_path)
+    print(f"Image saved to {output_image_path}")
+
+input_image_path = "C:\\chamil_work_space\\flask\\picture\\muscle (4).png"
+output_image_path = "C:\\chamil_work_space\\flask\\picture\\muscle (100).png"
+convert_to_grayscale(input_image_path, output_image_path)
+

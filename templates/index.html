@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pose Detection</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #222831;
+            margin: 0;
+            padding: 0;
+        }
+        * {
+            margin: 0%;
+            background-color: #B4B4B8;
+        }
+        .container {
+            display: flex;
+            margin: 0px;
+            background-color: #B4B4B8;
+            border-radius: 15px;
+            flex-direction: row;
+        }
+        .block_right {
+            margin: 0.5px;
+            background-color: #242323;
+            height: 110vh;
+            width: 250px;
+            border-radius: 5px;
+        }
+        .bod {
+            margin: 0.5px;
+            background-color: #000000;
+            height: 110vh;
+            width: calc(100% - 250px); /* Adjusted width */
+            border-radius: 5px;
+            position: relative;
+        }
+        .monitor {
+            position: absolute;
+            border: 0.5px solid #B4B4B8;
+            right: 0%; /* Adjusted margin-right */
+            background-color: rgb(0, 0, 0);
+            height: 110vh;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .co {
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        h2 {
+            margin-top: 5px;
+            margin-left: 10px;
+            color: #717171;
+            background-color: transparent;
+        }
+        .status {
+            border: 15px solid #000000;
+            margin-top: 20px; /* Adjusted margin */
+            border-radius: 25px;
+            background-color: #ffffff;
+            width: 240px;
+            height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #status {
+            font-weight: bold;
+            font-family: "Poppins", sans-serif;
+            font-size: 20px;
+            color: #EEEDEB;
+            background-color: transparent;
+        }
+        .output {
+            margin-left: 25px;
+            background-color: #000000;
+            width: 540px;
+        }
+        .video {
+            width: 100%; /* Adjusted width */
+            height: auto; /* Responsive height */
+            background-color: transparent;
+        }
+        .head {
+            border: 0.5px solid #B4B4B8;
+            margin-left: 0px;
+            background-color: #000000;
+            height: 55px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .head>img{
+            margin-left: 70px;
+            height: 40px;
+            border-radius: 50px;
+        }
+        .block_right>h2{
+            margin-left: 15px;
+            font-size: 70px;
+        }
+        .explain{
+            border: 0.5px solid #B4B4B8;
+            display: inline-block;
+            margin-top: 20px; /* Adjusted margin */
+            border-radius: 25px;
+            background-color: #0b0b0be2;
+            width: 240px;
+            height: 450px;
+            display: flex;
+        }
+        .explain>p{
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 400px;
+            margin-top: 20px; /* Adjusted margin */
+            border-radius: 25px;
+            background-color: transparent;
+            margin-left: 20px;
+        }
+
+        .bottom1{
+            border: 0.5px solid #B4B4B8;
+            background-color: transparent;
+            height: 30px;
+            width: 80px;
+            border-radius: 5px;
+            position: absolute;
+            margin-right: 0%;
+        }
+        .button:hover > :not(:hover) {
+            opacity: 0.4;
+        }
+        .button {
+            right: 0%;
+            background-color: transparent;
+            gap: 15px;
+            display: flex;
+            position: absolute;
+            margin-right: 20px;
+        }
+
+        .button>a{
+            background-color: black;
+        }
+
+        .box {
+            transition: opacity 0.6s ease;
+            padding: 10px 10px 10px 10px;
+            background-color: #2d2c2ce2;
+            border: 0.5px solid #B4B4B8;
+            display: flex;
+            border-radius: 4px;
+            height: 8px;
+            width: 10px;
+        }
+
+        #last {
+            width: 100px;
+        }
+
+        .empty>p{
+            align-items: center;
+            justify-content: center;
+            width: 525px;
+            height: 400px;
+            margin-top: 8px; /* Adjusted margin */
+            background-color: transparent;
+            margin-left: 8px;
+            color: #ffffff;
+            font-size: 12px;
+        }
+
+        .empty {
+            margin-left: 25px;
+            border: 0.5px solid #B4B4B8;
+            border-radius: 5px;
+            background-color: #000000;
+            width: 540px;
+            height: 100px;
+        }
+
+        .block_right>p{
+            color: #717171;
+            width: 200px;
+            height: 400px;
+            margin-top: 20px; /* Adjusted margin */
+            border-radius: 25px;
+            background-color: transparent;
+            margin-left: 20px;
+            font-size: 13px;
+        }
+
+        
+        .container_foot {
+            font-size: 10px;
+            height: 10px;
+            padding: 10px;
+            background-color: #242323fe;
+            align-items: flex-end;
+            display: flex;
+        }
+        .last>p{
+            color: #717171;
+            background-color: #242323fe;
+            margin-left: 30px;
+        }
+
+        .last{
+            display: flex;
+            gap: 20px;
+            background-color: #242323fe;
+            color: #242323fe;
+            margin-left: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="head">
+        <img src="../static/picture/image.png" alt="logo">
+        <h2>chxmil</h2>
+        <div class="button">
+            <li class="box"id="last"><a href="./poses.html"></a></li>
+            <li class="box"><a href="./inline-block.html"></a></li>
+            <li class="box"><a href="./absolute-position.html"></a></li>
+            <li class="box"><a href="./float.html"></a></li>
+            <li class="box"><a href="./flex.html"></a></li>
+            
+        </div>
+    </div>
+    <div class="container">
+        <div class="block_right">
+            <p>Hey everyone, Charmil Alee here, a first-year AI engineer with a fire in my belly to tackle a common foe: office syndrome!  <br> <br>We've all been there – glued to our screens, the hours melt away, and suddenly our backs feel like they've been wrestled by a grumpy ogre.  Not cool. <br> <br>That's why I present to you, with fierce pride, my very first project: a posture-detecting program!  It's like a guardian angel for your spine, a watchful knight ready to call out your slouching ways.  Gamers, office warriors, rejoice! This AI is here to fight for your comfort.</p>
+            
+        </div>
+        <div class="bod">
+            <div class="co">
+                <h2>Home</h2>
+                <div class="empty">
+                    <p></p>
+                </div>
+                <div class="output">
+                    <div id="status">Status: Loading...</div>
+                    <div class="video">
+                        <img src="{{ url_for('video_feed') }}" width="540" height="405">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="monitor">
+            <div class="status">
+                <img id="statusImage" src="" alt="Status Image" style="display: none; " width="220" height="200">
+                
+            </div>
+            <div class="explain">
+                <p id="statusParagraph" style="color: white;"></p> <!-- Add a paragraph for status -->
+            </div>
+            <script>
+                function updateStatus() {
+                    fetch('/status')
+                        .then(response => response.json())
+                        .then(data => {
+                            const statElement = document.getElementById('status');
+                            const statusElement = document.getElementById('statusParagraph'); // Update paragraph element
+                            const imgElement = document.getElementById('statusImage');
+                            statElement.innerText = `Status: ${data.status}`;
+
+                            if (data.status === "warning!") {
+                                imgElement.src = '/static/picture/muscle (6).png';
+                                imgElement.style.display = 'block';
+                                statusElement.innerHTML = "<strong>Trapezius:</strong> กล้ามเนื้อ Trapezius (ทราพีเซียส) เป็นหนึ่งในกล้ามเนื้อที่มักได้รับผลกระทบจากการนั่งหน้าคอมพิวเตอร์นานๆ  สาเหตุหลักๆ ที่ทำให้ Trapezius ปวดจากการนั่งหน้าคอมนานๆ มีดังนี้การนั่งหลังค่อม: การนั่งหลังค่อมทำให้กล้ามเนื้อ Trapezius ตึง กล้ามเนื้อมัดนี้ทำหน้าที่ยึดกระดูกสันหลังให้ตั้งตรง เมื่อต้องอยู่ในท่าหลังค่อมเป็นเวลานาน กล้ามเนื้อจะทำงานหนักเกินไป การวางไหล่ไม่เท่ากัน ทำให้กล้ามเนื้อ Trapezius ข้างใดข้างหนึ่งทำงานหนักกว่าอีกข้าง เกิดอาการตึง เกร็ง และปวด";
+                            } else if (data.status === "fix your sitting position") {
+                                imgElement.src = '/static/picture/muscle (2).png';
+                                imgElement.style.display = 'block';
+                                statusElement.innerHTML = "<strong>Supraspinatus:</strong> การนั่งไหล่เอียงทำให้กล้ามเนื้อไหล่ตึง โดยเฉพาะกล้ามเนื้อซูพราสไพรนัส (Supraspinatus) และกล้ามเนื้ออินฟราสไพรนัส (Infraspinatus) กล้ามเนื้อเหล่านี้ทำหน้าที่ยกแขนขึ้น เมื่อต้องอยู่ในท่าไหล่เอียงเป็นเวลานาน กล้ามเนื้อจะตึงและเกิดอาการปวด";
+                            } else if (data.status === "not work") {
+                                imgElement.src = '/static/picture/muscle (1).png';
+                                imgElement.style.display = 'block';
+                                statusElement.innerHTML = "<strong>latissimus dorsi:</strong> การนั่งหลังคู้เป็นเวลานานทำให้กล้ามเนื้อหลังบริเวณช่วงคอและไหล่ตึง เกร็ง และอ่อนแรง กล้ามเนื้อเหล่านี้ทำหน้าที่ยึดกระดูกสันหลังให้ตั้งตรง เมื่อต้องรับภาระจากการก้มหลังเป็นเวลานาน กล้ามเนื้อเหล่านี้จะทำงานหนักเกินไปและเกิดอาการปวด";
+                            } else if (data.status === "Right Position") {
+                                imgElement.src = '/static/picture/muscle (100).png';
+                                imgElement.style.display = 'block';
+                                statusElement.innerHTML = "You're in the right position. Keep it up!";
+                            } else {
+                                imgElement.src = '/static/picture/muscle (100).png';
+                                imgElement.style.display = 'block';
+                                statusElement.innerHTML = "<strong>Status:</strong> Unknown"; // Handle unknown status
+                            }
+                        })
+                        .catch(error => console.error('Error fetching status:', error));
+                }
+
+                // Update the status every second
+                setInterval(updateStatus, 1000);
+            </script>
+        </div>
+    </div>
+    <div class="container_foot">
+        <div class="last">
+        <p>Developed by Chamil Alee | </p> 
+        <p>gmail: charmil.alee2@gmail.com</p>
+        <p>Follow ig:chxmil</p>
+    </div>
+    </div>
+</body>
+</html>
