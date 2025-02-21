@@ -1,0 +1,20 @@
+from PIL import Image
+
+def invert_image(image_path):
+    """
+    Invert colors of an image.
+    :param image_path: Path to the input image.
+    :return: Inverted image.
+    """
+    # Open the image
+    image = Image.open(image_path)
+
+    # Invert the colors
+    inverted_image = Image.eval(image, lambda x: 255 - x)
+
+    return inverted_image
+
+# Example usage:
+input_image_path = "C:\\chamil_work_space\\free_for_do\\html\\image.png"
+output_image = invert_image(input_image_path)
+output_image.save("C:\\chamil_work_space\\free_for_do\\html\\inverte_image.png")  # Save the inverted image

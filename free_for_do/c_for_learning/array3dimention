@@ -1,0 +1,72 @@
+#include<stdio.h>
+int main (){
+    int a[100][100][100];
+    int sum[100];
+    int sumr[100];
+    int [100];
+    int sort[100];
+    int score;
+    int n;
+    int st;
+    int sl;
+    int p;
+    int r;
+    int countsort;
+    int u;
+    score=0,st=0,p=5,sl=0,r=0,countsort,u;
+
+    printf("input amount of studen : ");
+    scanf("%d", &n);
+    printf("\nyou need to input score for %d student \n", n);
+    printf("first term score\n");
+
+    for (r=0;r<2;r++){
+        for (st=0;st<n;st++){
+            sumr[r][st]=sum[st];
+            
+            for (score=0;score<p;score++){
+                printf("input student %d score : ", st+1);
+                scanf("%d", &a[r][st][score]);
+                sum[st]+=a[r][st][score]; 
+                }   
+            }
+            for (st=0;st<n;st++){
+                printf("\nin first term[%d]", sumr[r][st]);
+                printf("student%d :", st+1);
+            for (score=0;score<p;score++)
+                printf("%d:", a[r][st][score]);
+                }
+                        if (r<1)
+                            printf("\nlast term score\n");
+            }
+
+    for (st=0;st<n;st++){
+    
+    printf("\ntotal studen%d score : %d the grade is :", st+1, sum[st]);
+    
+    if (sum[st] >= 80) 
+        printf(" A\n");
+    if (sum[st] >= 70 && sum[st] < 80) 
+        printf(" B\n");
+    if (sum[st] >= 60 && sum[st] < 70)
+        printf(" C\n");
+    if (sum[st] >= 50 && sum[st] < 60) 
+        printf(" D\n");
+    if (sum[st] < 50) 
+        printf(" F\n");
+    }
+        
+    for (st=0 ; st<n ; st++){
+        for (sl=1 ; sl<n ; sl++){
+            if (st<sl && sum[st]>sum[sl]) {
+                countsort = sum[st];
+                sum[st] = sum[sl];
+                sum[sl] = countsort;
+            }
+        }
+    }
+    
+        for(st=n,u=1;st>0;u++,st--)
+        printf("score number %d is :%d\n", u, sum[st]);
+            
+        }

@@ -1,0 +1,14 @@
+from flask import Flask, render_template
+from function import get
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    # Calculate posture_status within the function
+    landmarks = ...  # Get landmarks from somewhere (e.g., a global variable or function call)
+    posture_status = get()
+    return render_template('index.html', posture_status=posture_status)
+
+if __name__ == '__main__':
+    app.run(debug=True)
